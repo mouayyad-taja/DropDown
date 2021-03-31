@@ -189,7 +189,7 @@ class ViewController: UIViewController {
             }
         }
 		
-        chooseArticleDropDown.dropDownHeight = 1000
+        chooseArticleDropDown.dropDownHeight = 100
         
 		// Action triggered on dropdown cancelation (hide)
 		//		dropDown.cancelAction = { [unowned self] in
@@ -242,15 +242,23 @@ class ViewController: UIViewController {
 		
 		// You can also use localizationKeysDataSource instead. Check the docs.
 		chooseDropDown.dataSource = [
-			"Lorem ipsum dolor",
-			"sit amet consectetur",
-			"cadipisci en..."
+            "Lorem ipsum dolor",
+            "sit amet consectetur",
+            "cadipisci en...",
+            "Lorem ipsum dolor",
+            "sit amet consectetur",
+            "cadipisci en...",
+            "Lorem ipsum dolor",
+            "sit amet consectetur",
+            "cadipisci en...",
 		]
 		
 		// Action triggered on selection
 		chooseDropDown.selectionAction = { [weak self] (index, item) in
 			self?.chooseButton.setTitle(item, for: .normal)
 		}
+        chooseDropDown.topOffset = CGPoint(x: 0, y: -chooseButton.frame.height)
+        chooseDropDown.dropDownHeight = 100
 	}
 	
 	func setupCenteredDropDown() {

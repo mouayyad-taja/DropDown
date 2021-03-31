@@ -587,6 +587,9 @@ extension DropDown {
         // Change height of dropdown
         if dropDownHeight > 0 && dropDownHeight <= layout.visibleHeight {
             heightConstraint.constant = dropDownHeight
+            if layout.Direction == .top || direction == .top {
+                yConstraint.constant += layout.visibleHeight - dropDownHeight
+            }
         } else {
             heightConstraint.constant = layout.visibleHeight
         }
