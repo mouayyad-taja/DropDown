@@ -189,6 +189,8 @@ class ViewController: UIViewController {
             }
         }
 		
+        chooseArticleDropDown.dropDownHeight = 1000
+        
 		// Action triggered on dropdown cancelation (hide)
 		//		dropDown.cancelAction = { [unowned self] in
 		//			// You could for example deselect the selected item

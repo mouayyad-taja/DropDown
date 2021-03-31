@@ -292,7 +292,13 @@ public final class DropDown: UIView {
 		willSet { tableViewContainer.layer.shadowRadius = newValue }
 		didSet { reloadAllComponents() }
 	}
-
+    
+    /**
+    Maximum drop down height.
+    */
+    public var dropDownHeight: CGFloat = 0.0 {
+        didSet { setNeedsUpdateConstraints() }
+    }
 	/**
 	The duration of the show/hide animation.
 	*/
@@ -578,9 +584,15 @@ extension DropDown {
 		xConstraint.constant = layout.x
 		yConstraint.constant = layout.y
 		widthConstraint.constant = layout.width
-		heightConstraint.constant = layout.visibleHeight
-
-		tableView.isScrollEnabled = layout.offscreenHeight > 0
+        // Change height of dropdown
+        if dropDownHeight > 0 && dropDownHeight <= layout.visibleHeight {
+            heightConstraint.constant = dropDownHeight
+        } else {
+            heightConstraint.constant = layout.visibleHeight
+        }
+        
+        // Enable scrolling if offscreen content or dropdown height is set
+        tableView.isScrollEnabled = layout.offscreenHeight > 0 || (dropDownHeight > 0 && layout.offscreenHeight + layout.visibleHeight > dropDownHeight)
 
 		DispatchQueue.main.async { [weak self] in
 			self?.tableView.flashScrollIndicators()
