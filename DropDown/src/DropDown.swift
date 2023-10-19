@@ -741,7 +741,7 @@ extension DropDown {
 		let x = anchorViewX + bottomOffset.x
 		let y = anchorViewY + bottomOffset.y
 		
-		let maxY = y + tableHeight
+		let maxY = y + validTableViewHeight
 		let windowMaxY = window.bounds.maxY - DPDConstant.UI.HeightPadding - offsetFromWindowBottom
 		
 		let keyboardListener = KeyboardListener.sharedInstance
@@ -763,7 +763,7 @@ extension DropDown {
 		let anchorViewMaxY = anchorView?.plainView.windowFrame?.maxY ?? 0
 
 		let x = anchorViewX + topOffset.x
-		var y = (anchorViewMaxY + topOffset.y) - tableHeight
+		var y = (anchorViewMaxY + topOffset.y) - validTableViewHeight
 
 		let windowY = window.bounds.minY + DPDConstant.UI.HeightPadding
 
@@ -1048,6 +1048,15 @@ extension DropDown {
 	fileprivate var tableHeight: CGFloat {
 		return tableView.rowHeight * CGFloat(dataSource.count)
 	}
+
+    /// Returns the valid height of the table view
+    fileprivate var validTableViewHeight: CGFloat {
+        guard dropDownHeight != 0 else {
+            return tableView.rowHeight * CGFloat(dataSource.count)
+        }
+        
+        return min(dropDownHeight, tableView.rowHeight * CGFloat(dataSource.count))
+    }
 
     //MARK: Objective-C methods for converting the Swift type Index
 	@objc public func selectRow(_ index: Int, scrollPosition: UITableView.ScrollPosition = .none) {
