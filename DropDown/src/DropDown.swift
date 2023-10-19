@@ -108,6 +108,9 @@ public final class DropDown: UIView {
 		didSet { setNeedsUpdateConstraints() }
 	}
 
+    /// A Boolean flag indicating whether the current language or script is written from right to left (RTL).
+    public var isRightToLeftLanguage: Bool = false
+    
 	/**
 	The possible directions where the drop down will be showed.
 
@@ -1100,6 +1103,7 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
 		
 		cell.optionLabel.textColor = textColor
 		cell.optionLabel.font = textFont
+        cell.optionLabel.textAlignment = self.isRightToLeftLanguage ? .right : .left
 		cell.selectedBackgroundColor = selectionBackgroundColor
         cell.highlightTextColor = selectedTextColor
         cell.normalTextColor = textColor
